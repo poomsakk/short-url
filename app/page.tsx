@@ -18,7 +18,7 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to shorten URL');
+        throw new Error('Failed to shorten URLs');
       }
 
       const data = await response.json();
