@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/short-url:${{ github.sha }}
   Pull-and-Deploy:
     needs: Docker-build-and-Push
     runs-on: self-hosted
@@ -36,7 +36,7 @@ jobs:
         run: docker stop ${{ secrets.DOCKERHUB_USERNAME }}/short-url || true
       -
         name: Pull new image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/short-url:${{ github.sha }}
       -
         name: Start new container
         run: docker run -d --restart=always 4444:3000 ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest --name=short-url-container
