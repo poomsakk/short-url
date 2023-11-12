@@ -24,7 +24,7 @@ export default function Home() {
       const data = await response.json();
       setShortUrl(`http://your-domain/${data.code}`);
     } catch (error) {
-      alert('An error occurred while shortening the URL. Please try again.' + error);
+      alert('An error occurred while shortening the URL. Please try again..' + error);
     }
   }
 
