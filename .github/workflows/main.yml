@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  docker:
+  Docker-build-and-Push:
     runs-on: ubuntu-latest
     steps:
       -
@@ -27,3 +27,15 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest
+  Pull-and-Deploy:
+    runs-on: self-hosted
+    steps:
+      -
+        name: Stop old container
+        run: docker stop ${{ secrets.DOCKERHUB_USERNAME }}/short-url
+      -
+        name: Pull new image
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest
+      -
+        name: Start new container
+        run: docker run -d --restart=always ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest --name=short-url-container
