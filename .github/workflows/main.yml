@@ -39,4 +39,4 @@ jobs:
         run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest
       -
         name: Start new container
-        run: docker run -d --restart=always ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest --name=short-url-container
+        run: docker run -d --restart=always 4444:3000 ${{ secrets.DOCKERHUB_USERNAME }}/short-url:latest --name=short-url-container
